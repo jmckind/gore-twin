@@ -74,4 +74,4 @@ gore-twin is released under the Apache 2.0 license. See the [LICENSE][license_fi
 
 [license_file]:./LICENSE
 [twitter_docs]: https://developer.twitter.com/en/docs/tweets/filter-realtime/api-reference/post-statuses-filter.html
-[docker_image]: https://hub.docker.com/r/jmckind/rethinkdb/
+[docker_image]: https://hub.docker.com/r/jmckind/gore-twin
