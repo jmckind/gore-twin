@@ -1,4 +1,4 @@
-// Copyright 2019 gore-twin authors
+// Copyright 2019 gtrchive authors
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,16 +29,26 @@ func main() {
 	log.Debugf("Go OS/Arch: %s/%s", runtime.GOOS, runtime.GOARCH)
 
 	api := anaconda.NewTwitterApiWithCredentials(
-		os.Getenv("TWITTER_ACCESS_TOKEN"),
-		os.Getenv("TWITTER_ACCESS_SECRET"),
-		os.Getenv("TWITTER_CONSUMER_KEY"),
-		os.Getenv("TWITTER_CONSUMER_SECRET"),
+		os.Getenv("GTR_TWITTER_ACCESS_TOKEN"),
+		os.Getenv("GTR_TWITTER_ACCESS_SECRET"),
+		os.Getenv("GTR_TWITTER_CONSUMER_KEY"),
+		os.Getenv("GTR_TWITTER_CONSUMER_SECRET"),
 	)
 	api.Log = log
 
 	params := url.Values{
-		"track": {os.Getenv("TWITTER_TRACK")},
+		"track": {os.Getenv("GTR_TWITTER_TRACK")},
 	}
+
+	rdbHost := os.Getenv("GTR_RETHINKDB_HOST")
+	rdbPort := os.Getenv("GTR_RETHINKDB_PORT")
+	rdbUsername := os.Getenv("GTR_RETHINKDB_USERNAME")
+	rdbPassword := os.Getenv("GTR_RETHINKDB_PASSWORD")
+
+	log.Debugf("RethinkDB Host: %s", rdbHost)
+	log.Debugf("RethinkDB Port: %s", rdbPort)
+	log.Debugf("RethinkDB Username: %s", rdbUsername)
+	log.Debugf("RethinkDB Password: %s", rdbPassword)
 
 	log.Debugf("Streaming tweets using params: %v", params)
 	stream := api.PublicStreamFilter(params)
