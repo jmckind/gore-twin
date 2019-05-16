@@ -26,6 +26,14 @@
   revision = "53511d3c733003985b0b76f733df1f4d0095ee6a"
 
 [[projects]]
+  digest = "1:c1100fc71e23b6a32b2c68a5202a848fd13811d5a10b12edb8019c3667d1cd9a"
+  name = "github.com/cenkalti/backoff"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4b4cebaf850ec58f1bb1fec5bdebdf8501c2bc3f"
+  version = "v3.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:efe7dc6d12119a36c1a617b574e99ac9c5ca8fbff57eb283a60462552b7c782a"
   name = "github.com/dustin/go-jsonpointer"
@@ -50,6 +58,58 @@
   revision = "bca2e7f09a178fd36b034107a00e2323bca6a82e"
 
 [[projects]]
+  digest = "1:318f1c959a8a740366fce4b1e1eb2fd914036b4af58fbd0a003349b305f118ad"
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  pruneopts = "UT"
+  revision = "b5d812f8a3706043e23a9cd5babf2e5423744d30"
+  version = "v1.3.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:364b908b9b27b97ab838f2f6f1b1f46281fa29b978a037d72a9b1d4f6d940190"
+  name = "github.com/hailocab/go-hostpool"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e80d13ce29ede4452c43dea11e79b9bc8a15b478"
+
+[[projects]]
+  digest = "1:31e761d97c76151dde79e9d28964a812c46efc5baee4085b86f68f0c654450de"
+  name = "github.com/konsorten/go-windows-terminal-sequences"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f55edac94c9bbba5d6182a4be46d86a2c9b5b50e"
+  version = "v1.0.2"
+
+[[projects]]
+  digest = "1:11e62d6050198055e6cd87ed57e5d8c669e84f839c16e16f192374d913d1a70d"
+  name = "github.com/opentracing/opentracing-go"
+  packages = [
+    ".",
+    "ext",
+    "log",
+  ]
+  pruneopts = "UT"
+  revision = "659c90643e714681897ec2521c60567dd21da733"
+  version = "v1.1.0"
+
+[[projects]]
+  digest = "1:fd61cf4ae1953d55df708acb6b91492d538f49c305b364a014049914495db426"
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "8bdbc7bcc01dcbb8ec23dc8a28e332258d25251f"
+  version = "v1.4.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:f92f6956e4059f6a3efc14924d2dd58ba90da25cc57fe07ae3779ef2f5e0c5f2"
+  name = "golang.org/x/crypto"
+  packages = ["pbkdf2"]
+  pruneopts = "UT"
+  revision = "22d7a77e9e5f409e934ed268692e56707cd169e5"
+
+[[projects]]
   branch = "master"
   digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
   name = "golang.org/x/net"
@@ -57,9 +117,41 @@
   pruneopts = "UT"
   revision = "a4d6f7feada510cc50e69a37b484cb0fdc6b7876"
 
+[[projects]]
+  branch = "master"
+  digest = "1:3851a6d548ec5a808e396408f03a30b8d05ef4426db7ad8688f639b2d88b47bd"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  pruneopts = "UT"
+  revision = "cab07311ab81fc7f180fddf7410b604373b20a00"
+
+[[projects]]
+  digest = "1:546db0bd0542751aff1e75052dd1fa0b0a1cee681d43bfa9ffac7c22714c1070"
+  name = "gopkg.in/fatih/pool.v2"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "010e0b745d12eaf8426c95f9c3924d81dd0b668f"
+  version = "v2.0.0"
+
+[[projects]]
+  digest = "1:33adbd93ddd4d7c554ba8568aa5094d5b93086dc14644ca01cb19a1c20aeae8b"
+  name = "gopkg.in/rethinkdb/rethinkdb-go.v5"
+  packages = [
+    ".",
+    "encoding",
+    "ql2",
+    "types",
+  ]
+  pruneopts = "UT"
+  revision = "442075482543497ce5f159d3dea451dc43bd1c0a"
+  version = "v5.0.1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/ChimeraCoder/anaconda"]
+  input-imports = [
+    "github.com/ChimeraCoder/anaconda",
+    "gopkg.in/rethinkdb/rethinkdb-go.v5",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
