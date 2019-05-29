@@ -15,7 +15,10 @@
 package main
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"fmt"
+	"io/ioutil"
 	"net/url"
 	"os"
 	"runtime"
@@ -51,18 +54,46 @@ func main() {
 	rdbDatabase := os.Getenv("GTR_RETHINKDB_DATABASE")
 	rdbUsername := os.Getenv("GTR_RETHINKDB_USERNAME")
 	rdbPassword := os.Getenv("GTR_RETHINKDB_PASSWORD")
+	rdbTLSCAPath := os.Getenv("GTR_RETHINKDB_TLS_CA")
+	rdbTLSCertPath := os.Getenv("GTR_RETHINKDB_TLS_CERT")
+	rdbTLSKeyPath := os.Getenv("GTR_RETHINKDB_TLS_KEY")
 
 	log.Debugf("RethinkDB Host: %s", rdbHost)
 	log.Debugf("RethinkDB Port: %s", rdbPort)
 	log.Debugf("RethinkDB Database: %s", rdbDatabase)
 	log.Debugf("RethinkDB Username: %s", rdbUsername)
 	log.Debugf("RethinkDB Password: %s", rdbPassword)
+	log.Debugf("RethinkDB TLS CA Path: %s", rdbTLSCAPath)
+	log.Debugf("RethinkDB TLS Cert Path: %s", rdbTLSCertPath)
+	log.Debugf("RethinkDB TLS Key Path: %s", rdbTLSKeyPath)
+
+	var tlsConfig *tls.Config
+
+	if len(rdbTLSCAPath) > 0 && len(rdbTLSCertPath) > 0 {
+		certPool := x509.NewCertPool()
+		caCert, err := ioutil.ReadFile(rdbTLSCAPath)
+		if err != nil {
+			log.Fatalf("Unable to parse CA certificate. %v", err)
+		}
+		certPool.AppendCertsFromPEM(caCert)
+
+		clientCert, err := tls.LoadX509KeyPair(rdbTLSCertPath, rdbTLSKeyPath)
+		if err != nil {
+			log.Fatalf("Unable to parse client key pair. %v", err)
+		}
+
+		tlsConfig = &tls.Config{
+			Certificates: []tls.Certificate{clientCert},
+			RootCAs:      certPool,
+		}
+	}
 
 	rdbOpts := r.ConnectOpts{
-		Address:  fmt.Sprintf("%s:%s", rdbHost, rdbPort),
-		Database: rdbDatabase,
-		Username: rdbUsername,
-		Password: rdbPassword,
+		Address:   fmt.Sprintf("%s:%s", rdbHost, rdbPort),
+		Database:  rdbDatabase,
+		Username:  rdbUsername,
+		Password:  rdbPassword,
+		TLSConfig: tlsConfig,
 	}
 
 	session, err := r.Connect(rdbOpts)
